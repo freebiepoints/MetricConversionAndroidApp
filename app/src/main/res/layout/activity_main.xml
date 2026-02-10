@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Root layout for the main activity, using a vertical LinearLayout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -7,6 +8,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <!-- Input field for the user to enter the value to be converted -->
     <EditText
         android:id="@+id/et_val"
         android:layout_width="match_parent"
@@ -15,6 +17,7 @@
         android:hint="Enter value to convert"
         />
 
+    <!-- TextView to display the conversion result -->
     <TextView
         android:id="@+id/tv_result"
         android:layout_width="wrap_content"
@@ -22,12 +25,14 @@
         android:layout_margin="20dp"
         android:padding="10dp" />
 
+    <!-- Layout for distance conversion buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="20dp">
 
+        <!-- Button to convert miles to kilometers -->
         <Button
             android:id="@+id/btn_mi_to_km"
             android:layout_width="0dp"
@@ -37,6 +42,7 @@
             android:text="Miles to km"
             />
 
+        <!-- Button to convert kilometers to miles -->
         <Button
             android:id="@+id/btn_km_to_mi"
             android:layout_width="0dp"
@@ -48,12 +54,14 @@
 
     </LinearLayout>
 
+    <!-- Layout for Fahrenheit/Celsius conversion buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="20dp">
 
+        <!-- Button to convert Fahrenheit to Celsius -->
         <Button
             android:id="@+id/btn_f_to_c"
             android:layout_width="wrap_content"
@@ -63,6 +71,7 @@
             android:text="Fahrenheit to Celsius"
             />
 
+        <!-- Button to convert Celsius to Fahrenheit -->
         <Button
             android:id="@+id/btn_c_to_f"
             android:layout_width="wrap_content"
@@ -73,12 +82,14 @@
             />
     </LinearLayout>
 
+    <!-- Layout for Kelvin conversion buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_margin="20dp">
 
+        <!-- Button to convert Fahrenheit to Kelvin -->
         <Button
             android:id="@+id/btn_f_to_k"
             android:layout_width="wrap_content"
@@ -88,6 +99,7 @@
             android:text="Fahrenheit to Kelvin"
             />
 
+        <!-- Button to convert Celsius to Kelvin -->
         <Button
             android:id="@+id/btn_c_to_k"
             android:layout_width="wrap_content"
