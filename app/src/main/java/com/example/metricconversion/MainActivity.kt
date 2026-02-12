@@ -6,6 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Spinner
+import android.widget.ArrayAdapter
+import android.widget.AdapterView
+import android.view.View
+
 
 /**
  * The main activity for the metric conversion application.
@@ -42,11 +47,30 @@ class MainActivity : AppCompatActivity() {
         btnCK = findViewById(R.id.btn_c_to_k)
         tvResult = findViewById(R.id.tv_result)
 
+        // Spinner elements
+        var selectedDecimals = 2 // default
+        val roundingOptions = listOf("0 decimals", "1 decimal", "2 decimals", "3 decimals", "4 decimals")
+        val spinner = findViewById<Spinner>(R.id.roundingSpinner)
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_spinner_dropdown_item,
+            roundingOptions
+        )
+        spinner.adapter = adapter
+        spinner.setSelection(2) // default to 2 decimals
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                selectedDecimals = position
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+
         // Set click listener for miles to kilometers conversion
         btnMiKm.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value * 1.60934
-                tvResult.text = "$value miles is ${result.toTwoDec()} km"
+                tvResult.text = "$value miles is ${result.formatDecimals(selectedDecimals)} km"
             }
         }
 
@@ -54,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         btnKmMi.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value / 1.60934
-                tvResult.text = "$value km is ${result.toTwoDec()} miles"
+                tvResult.text = "$value km is ${result.formatDecimals(selectedDecimals)} miles"
             }
         }
 
@@ -62,7 +86,7 @@ class MainActivity : AppCompatActivity() {
         btnFC.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = (value - 32) * (0.55556)
-                tvResult.text = "$value degrees Fahrenheit is ${result.toTwoDec()} degrees Celsius"
+                tvResult.text = "$value degrees Fahrenheit is ${result.formatDecimals(selectedDecimals)} degrees Celsius"
             }
         }
 
@@ -70,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         btnCF.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = ((value * 1.8) + 32)
-                tvResult.text = "$value degrees Celsius is ${result.toTwoDec()} degrees Fahrenheit"
+                tvResult.text = "$value degrees Celsius is ${result.formatDecimals(selectedDecimals)} degrees Fahrenheit"
             }
         }
 
@@ -78,7 +102,7 @@ class MainActivity : AppCompatActivity() {
         btnFK.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = ((value - 32) * (0.55556)) + 273.15
-                tvResult.text = "$value degrees Fahrenheit is ${result.toTwoDec()} degrees Kelvin"
+                tvResult.text = "$value degrees Fahrenheit is ${result.formatDecimals(selectedDecimals)} degrees Kelvin"
             }
         }
 
@@ -86,7 +110,7 @@ class MainActivity : AppCompatActivity() {
         btnCK.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value + 273.15
-                tvResult.text = "$value degrees Celsius is ${result.toTwoDec()} degrees Kelvin"
+                tvResult.text = "$value degrees Celsius is ${result.formatDecimals(selectedDecimals)} degrees Kelvin"
             }
         }
     }
@@ -103,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         return value
     }
 
-    private fun Double.toTwoDec(): String {
-        return String.format("%.2f", this)
+    private fun Double.formatDecimals(decimals: Int): String {
+        return String.format("%.${decimals}f", this)
     }
 }
