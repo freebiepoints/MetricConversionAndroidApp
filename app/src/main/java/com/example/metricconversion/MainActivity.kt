@@ -44,48 +44,66 @@ class MainActivity : AppCompatActivity() {
 
         // Set click listener for miles to kilometers conversion
         btnMiKm.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = value * 1.60934
-            tvResult.text = "$value miles is $result km"
+            getInputValue()?.let { value ->
+                val result = value * 1.60934
+                tvResult.text = "$value miles is $result km"
+            }
         }
 
         // Set click listener for kilometers to miles conversion
         btnKmMi.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = value / 1.60934
-            tvResult.text = "$value km is $result miles"
+            getInputValue()?.let { value ->
+                val result = value / 1.60934
+                tvResult.text = "$value km is $result miles"
+            }
         }
 
         // Set click listener for Fahrenheit to Celsius conversion
         btnFC.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = (value-32)*(0.55556)
-            val formattedresult = String.format("%.2f", result)
-            tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Celsius"
+            getInputValue()?.let { value ->
+                val result = (value - 32) * (0.55556)
+                val formattedresult = String.format("%.2f", result)
+                tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Celsius"
+            }
         }
 
         // Set click listener for Celsius to Fahrenheit conversion
         btnCF.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = ((value*1.8) + 32)
-            val formattedresult = String.format("%.2f", result)
-            tvResult.text = "$value degrees Celsius is $formattedresult degrees Fahrenheit"
+            getInputValue()?.let { value ->
+                val result = ((value * 1.8) + 32)
+                val formattedresult = String.format("%.2f", result)
+                tvResult.text = "$value degrees Celsius is $formattedresult degrees Fahrenheit"
+            }
         }
 
         // Set click listener for Fahrenheit to Kelvin conversion
         btnFK.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = ((value-32)*(0.55556)) + 273.15
-            val formattedresult = String.format("%.2f", result)
-            tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Kelvin"
+            getInputValue()?.let { value ->
+                val result = ((value - 32) * (0.55556)) + 273.15
+                val formattedresult = String.format("%.2f", result)
+                tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Kelvin"
+            }
         }
 
         // Set click listener for Celsius to Kelvin conversion
         btnCK.setOnClickListener {
-            val value = etVal.text.toString().toDouble()
-            val result = value + 273.15
-            val formattedresult = String.format("%.2f", result)
-            tvResult.text = "$value degrees Celsius is $formattedresult degrees Kelvin"
+            getInputValue()?.let { value ->
+                val result = value + 273.15
+                val formattedresult = String.format("%.2f", result)
+                tvResult.text = "$value degrees Celsius is $formattedresult degrees Kelvin"
+            }
         }
+    }
+
+    /**
+     * Gets the input value from the EditText.
+     * @return The a double representing the value, or null if the input is invalid.
+     */
+    private fun getInputValue(): Double? {
+        val value = etVal.text.toString().toDoubleOrNull()
+        if (value == null) {
+            etVal.error = "Please enter a valid number"
+        }
+        return value
     }
 }
