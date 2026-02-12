@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         btnMiKm.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value * 1.60934
-                tvResult.text = "$value miles is $result km"
+                tvResult.text = "$value miles is ${result.toTwoDec()} km"
             }
         }
 
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         btnKmMi.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value / 1.60934
-                tvResult.text = "$value km is $result miles"
+                tvResult.text = "$value km is ${result.toTwoDec()} miles"
             }
         }
 
@@ -62,8 +62,7 @@ class MainActivity : AppCompatActivity() {
         btnFC.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = (value - 32) * (0.55556)
-                val formattedresult = String.format("%.2f", result)
-                tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Celsius"
+                tvResult.text = "$value degrees Fahrenheit is ${result.toTwoDec()} degrees Celsius"
             }
         }
 
@@ -71,8 +70,7 @@ class MainActivity : AppCompatActivity() {
         btnCF.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = ((value * 1.8) + 32)
-                val formattedresult = String.format("%.2f", result)
-                tvResult.text = "$value degrees Celsius is $formattedresult degrees Fahrenheit"
+                tvResult.text = "$value degrees Celsius is ${result.toTwoDec()} degrees Fahrenheit"
             }
         }
 
@@ -80,8 +78,7 @@ class MainActivity : AppCompatActivity() {
         btnFK.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = ((value - 32) * (0.55556)) + 273.15
-                val formattedresult = String.format("%.2f", result)
-                tvResult.text = "$value degrees Fahrenheit is $formattedresult degrees Kelvin"
+                tvResult.text = "$value degrees Fahrenheit is ${result.toTwoDec()} degrees Kelvin"
             }
         }
 
@@ -89,8 +86,7 @@ class MainActivity : AppCompatActivity() {
         btnCK.setOnClickListener {
             getInputValue()?.let { value ->
                 val result = value + 273.15
-                val formattedresult = String.format("%.2f", result)
-                tvResult.text = "$value degrees Celsius is $formattedresult degrees Kelvin"
+                tvResult.text = "$value degrees Celsius is ${result.toTwoDec()} degrees Kelvin"
             }
         }
     }
@@ -105,5 +101,9 @@ class MainActivity : AppCompatActivity() {
             etVal.error = "Please enter a valid number"
         }
         return value
+    }
+
+    private fun Double.toTwoDec(): String {
+        return String.format("%.2f", this)
     }
 }
